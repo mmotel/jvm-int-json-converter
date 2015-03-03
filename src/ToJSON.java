@@ -5,7 +5,39 @@ import java.lang.reflect.Method;
 
 public class ToJSON {
 	
-	public String SimpleProperites (Object o) throws IllegalArgumentException, SecurityException, InvocationTargetException {
+	public Object getFieldValue (Object obj, Field field) throws InvocationTargetException {
+		try {
+			Object value = field.get(obj);
+			return value;
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			//field is private
+			String getterName = "get" + field.getName().substring(0,1).toUpperCase() +
+					field.getName().substring(1, field.getName().length());
+			
+			try {
+				Method getter = obj.getClass().getMethod(getterName);
+				
+				try {
+					Object value = getter.invoke(obj);
+					return value;
+				} catch (IllegalAccessException e1) {
+					//getter is private
+				} catch (IllegalArgumentException e1) {
+					//getter with argument(s) ?!
+				}
+			} catch (NoSuchMethodException e1) {
+				//no getter method
+				//TODO field is boolean? check 'isName' ?
+			}
+		}
+		
+		return null;
+	}
+	
+	public String convert (Object o) throws InvocationTargetException {
 		String result = "{";
 		
 		Class<? extends Object> bean = o.getClass();
@@ -13,28 +45,17 @@ public class ToJSON {
 		Field[] fields = bean.getDeclaredFields();
 		
 		for(Field field : fields){
-			try {
-				Object value = field.get(o);
-				result += " \"" + field.getName() + "\": " + value.toString() + ",";
-			}
-			catch (IllegalAccessException illAccExp) {
-				//field is private
-				String getterName = "get" + field.getName().substring(0,1).toUpperCase() +
-						field.getName().substring(1, field.getName().length());
-				try{
-					Method getter = bean.getMethod(getterName);
-	
-					try {
-						Object value = getter.invoke(o);
-						result += " \"" + field.getName() + "\": " + value.toString() + ",";
-					} catch (IllegalAccessException IllAccExp2) {
-						//getter is private
-					}
+			Object value = getFieldValue(o, field);
+			if(value != null){
+				Class<? extends Object> valueClass = value.getClass();
+				if(valueClass.equals(String.class) || valueClass.equals(Character.class)){
+					result += " \"" + field.getName() + "\": \"" + value + "\"," ;
 				}
-				catch (NoSuchMethodException NoSuchMetdExp) {
-					//no getter for field
+				else if(valueClass.equals(Integer.class) || valueClass.equals(Double.class) ||
+						valueClass.equals(Float.class) || valueClass.equals(Long.class) ||
+						valueClass.equals(Short.class) || valueClass.equals(Byte.class)) {
+					result += " \"" + field.getName() + "\": " + value + "," ;
 				}
-				
 			}
 		}
 		

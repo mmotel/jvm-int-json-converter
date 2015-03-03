@@ -12,7 +12,8 @@ public class ToJSONTest {
 		Person p = new Person("Mateusz", 25);
 		
 		try {
-			assertEquals("{ \"name\": Mateusz, \"age\": 25 }" ,toJSON.SimpleProperites(p));
+			String resultJSON = toJSON.convert(p);
+			assertEquals("{ \"name\": \"Mateusz\", \"age\": 25 }" , resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
