@@ -2,19 +2,38 @@
 public class Person {
 
 	public String name;
-	private Integer age;
+	public Character gender;
 	private Boolean married;
+	private Integer age;
+	private Float height;
+	private Double weight;
+	private Short children; 
+	private Long iq;
+	private Byte sth;
 	
 	public Person() {
 		this.name = "Mateusz";
-		this.age = 25;
+		this.gender = 'M';
 		this.married = false;
+		this.age = 25;
+		this.height = (float) 185;
+		this.weight = 90.0;
+		this.children = 0;
+		this.iq = (long) 135;
+		this.sth = 10;
 	}
 	
-	public Person(String name, Integer age, Boolean married) {
+	public Person(String name, Character gender, Boolean married, Integer age, Float height, 
+			Double weight, Short children, Long iq, Byte sth) {
 		this.name = name;
-		this.age = age;
+		this.gender = gender;
 		this.married = married;
+		this.age = age;
+		this.height = height;
+		this.weight = weight;
+		this.children =children;
+		this.iq = iq;
+		this.sth = sth;
 	}
 	
 	public Integer getAge() {
@@ -29,5 +48,48 @@ public class Person {
 
 	public void setMarried(Boolean married) {
 		this.married = married;
+	}
+	public Float getHeight() {
+		return height;
+	}
+
+	public void setHeight(Float height) {
+		this.height = height;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+	public Short getChildren() {
+		return children;
+	}
+
+	public void setChildren(Short children) {
+		this.children = children;
+	}
+
+	public Long getIq() {
+		return iq;
+	}
+
+	public void setIq(Long iq) {
+		this.iq = iq;
+	}
+
+	public Byte getSth() {
+		return sth;
+	}
+
+	public void setSth(Byte sth) {
+		this.sth = sth;
+	}
+
+	public Boolean getMarried() {
+		return married;
 	}
 }
