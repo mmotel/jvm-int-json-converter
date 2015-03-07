@@ -62,11 +62,8 @@ public class ToJSON {
 			if(value != null){
 				result += " \"" + field.getName() + "\": ";
 				Class<? extends Object> valueClass = value.getClass();
-				if(valueClass.equals(String.class)){
+				if(valueClass.equals(String.class) || valueClass.equals(Character.class)){
 					result += "\"" + value + "\",";
-				}
-				else if(valueClass.equals(Character.class)){
-					result += "\'" + value + "\',";
 				}
 				else if(valueClass.equals(Integer.class) || valueClass.equals(Double.class) ||
 						valueClass.equals(Float.class) || valueClass.equals(Long.class) ||
