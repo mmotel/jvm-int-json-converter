@@ -7,11 +7,7 @@ public class Group {
 	private List<String> names = new ArrayList<String>();
 	private List<Person> members = new ArrayList<Person>();
 	
-	Group () {
-		Person p = new Person("Mateusz", 'M', false, 24, (float) 184, 85.0, (short) 0, (long) 150, (byte) 22);
-		this.members.add(p);
-		this.names.add("group");
-	}
+	Group () {}
 	
 	Group (List<Person> members, List<String> names) {
 		this.members = members;

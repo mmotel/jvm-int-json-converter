@@ -81,7 +81,6 @@ public class ToJSON {
 					result += primitive + ",";
 				}
 				else if(Collection.class.isAssignableFrom(value.getClass())){
-					//System.out.println(value.getClass());
 					result += "[ ";
 					Collection<?> coll = (Collection<?>) value;
 					for(Object item : coll.toArray()) {

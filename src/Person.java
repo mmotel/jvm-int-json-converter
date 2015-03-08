@@ -11,17 +11,7 @@ public class Person {
 	private Long iq;
 	private Byte sth;
 	
-	public Person() {
-		this.name = "Mateusz";
-		this.gender = 'M';
-		this.married = false;
-		this.age = 25;
-		this.height = (float) 185;
-		this.weight = 90.0;
-		this.children = 0;
-		this.iq = (long) 135;
-		this.sth = 10;
-	}
+	public Person() {}
 	
 	public Person(String name, Character gender, Boolean married, Integer age, Float height, 
 			Double weight, Short children, Long iq, Byte sth) {

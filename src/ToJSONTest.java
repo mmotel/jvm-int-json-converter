@@ -19,7 +19,6 @@ public class ToJSONTest {
 			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
 					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
 					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
-			//System.out.println(resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -34,7 +33,6 @@ public class ToJSONTest {
 			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
 					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
 					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
-			//System.out.println(resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -57,7 +55,6 @@ public class ToJSONTest {
 					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
 					+ " \"iq\": 150, \"sth\": 22 } ] }", resultJSON);
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 	}
