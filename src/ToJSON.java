@@ -1,7 +1,7 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+import java.util.Collection;
 
 public class ToJSON {
 	
@@ -50,28 +50,49 @@ public class ToJSON {
 		return null;
 	}
 	
+	public String wrapPrimitiveType (Object value) {
+		Class<? extends Object> valueClass = value.getClass();
+		if(valueClass.equals(String.class) || valueClass.equals(Character.class)){
+			return "\"" + value + "\"";
+		}
+		else if(valueClass.equals(Integer.class) || valueClass.equals(Double.class) ||
+				valueClass.equals(Float.class) || valueClass.equals(Long.class) ||
+				valueClass.equals(Short.class) || valueClass.equals(Byte.class)) {
+			return value.toString();
+		}
+		else if(valueClass.equals(Boolean.class)) {
+			return value.toString();
+		}
+		
+		return null;
+	}
+	
 	public String convert (Object o) throws InvocationTargetException {
 		String result = "{";
 		
-		Class<? extends Object> bean = o.getClass();
-		
-		Field[] fields = bean.getDeclaredFields();
+		Field[] fields = o.getClass().getDeclaredFields();
 		
 		for(Field field : fields){
 			Object value = getFieldValue(o, field);
 			if(value != null){
 				result += " \"" + field.getName() + "\": ";
-				Class<? extends Object> valueClass = value.getClass();
-				if(valueClass.equals(String.class) || valueClass.equals(Character.class)){
-					result += "\"" + value + "\",";
+				String primitive = wrapPrimitiveType(value);
+				if(primitive != null){
+					result += primitive + ",";
 				}
-				else if(valueClass.equals(Integer.class) || valueClass.equals(Double.class) ||
-						valueClass.equals(Float.class) || valueClass.equals(Long.class) ||
-						valueClass.equals(Short.class) || valueClass.equals(Byte.class)) {
-					result += value.toString() + ",";
-				}
-				else if(valueClass.equals(Boolean.class)) {
-					result += value.toString() + ",";
+				else if(Collection.class.isAssignableFrom(value.getClass())){
+					//System.out.println(value.getClass());
+					result += "[ ";
+					Collection<?> coll = (Collection<?>) value;
+					for(Object item : coll.toArray()) {
+						String primitiveItem = wrapPrimitiveType(item);
+						if(primitiveItem != null) {
+							result += primitiveItem + ", ";
+						} else {
+							result += convert(item) + ", ";
+						}
+					}
+					result = result.substring(0, result.length()-2) + " ],";
 				}
 			}
 		}

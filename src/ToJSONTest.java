@@ -1,7 +1,10 @@
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.ArrayList;
 
+import org.junit.Test;
 
 public class ToJSONTest {
 	
@@ -16,7 +19,7 @@ public class ToJSONTest {
 			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
 					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
 					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
-			System.out.println(resultJSON);
+			//System.out.println(resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -31,8 +34,30 @@ public class ToJSONTest {
 			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
 					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
 					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
-			System.out.println(resultJSON);
+			//System.out.println(resultJSON);
 		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testCollectionProperties() {
+		Person p = new Person("Mateusz", 'M', false, 24, (float) 184, 85.0, (short) 0, (long) 150, (byte) 22);
+		List<Person> members = new ArrayList<Person>();
+		members.add(p);
+		List<String> names = new ArrayList<String>();
+		names.add("group");
+		Group g = new Group(members, names);
+		
+		try {
+			String resultJSON = toJSON.convert(g);
+			//System.out.println(resultJSON);
+			assertEquals("{ \"names\": [ \"group\" ], \"members\": [ "
+					+ "{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
+					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
+					+ " \"iq\": 150, \"sth\": 22 } ] }", resultJSON);
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 	}
