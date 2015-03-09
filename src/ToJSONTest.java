@@ -16,9 +16,9 @@ public class ToJSONTest {
 		
 		try {
 			String resultJSON = toJSON.convert(p);
-			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
-					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
-					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
+			assertEquals("{\"name\":\"Mateusz\",\"gender\":\"M\",\"married\":false,\"age\":24,"
+					+ "\"height\":184.0,\"weight\":85.0,\"children\":0,"
+					+ "\"iq\":150,\"sth\":22}" , resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -30,9 +30,9 @@ public class ToJSONTest {
 		
 		try {
 			String resultJSON = toJSON.convert(p);
-			assertEquals("{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
-					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
-					+ " \"iq\": 150, \"sth\": 22 }" , resultJSON);
+			assertEquals("{\"name\":\"Mateusz\",\"gender\":\"M\",\"married\":false,\"age\":24,"
+					+ "\"height\":184.0,\"weight\":85.0,\"children\":0,"
+					+ "\"iq\":150,\"sth\":22}" , resultJSON);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -50,10 +50,10 @@ public class ToJSONTest {
 		try {
 			String resultJSON = toJSON.convert(g);
 			//System.out.println(resultJSON);
-			assertEquals("{ \"names\": [ \"group\" ], \"members\": [ "
-					+ "{ \"name\": \"Mateusz\", \"gender\": \"M\", \"married\": false, \"age\": 24,"
-					+ " \"height\": 184.0, \"weight\": 85.0, \"children\": 0,"
-					+ " \"iq\": 150, \"sth\": 22 } ] }", resultJSON);
+			assertEquals("{\"names\":[\"group\"],\"members\":["
+					+ "{\"name\":\"Mateusz\",\"gender\":\"M\",\"married\":false,\"age\":24,"
+					+ "\"height\":184.0,\"weight\":85.0,\"children\":0,"
+					+ "\"iq\":150,\"sth\":22}]}", resultJSON);
 		} catch (InvocationTargetException e) {
 			fail(e.getMessage());
 		}

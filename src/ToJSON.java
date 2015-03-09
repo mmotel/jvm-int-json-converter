@@ -75,28 +75,28 @@ public class ToJSON {
 		for(Field field : fields){
 			Object value = getFieldValue(o, field);
 			if(value != null){
-				result += " \"" + field.getName() + "\": ";
+				result += "\"" + field.getName() + "\":";
 				String primitive = wrapPrimitiveType(value);
 				if(primitive != null){
 					result += primitive + ",";
 				}
 				else if(Collection.class.isAssignableFrom(value.getClass())){
-					result += "[ ";
+					result += "[";
 					Collection<?> coll = (Collection<?>) value;
 					for(Object item : coll.toArray()) {
 						String primitiveItem = wrapPrimitiveType(item);
 						if(primitiveItem != null) {
-							result += primitiveItem + ", ";
+							result += primitiveItem + ",";
 						} else {
-							result += convert(item) + ", ";
+							result += convert(item) + ",";
 						}
 					}
-					result = result.substring(0, result.length()-2) + " ],";
+					result = result.substring(0, result.length()-1) + "],";
 				}
 			}
 		}
 		
-		result = result.substring(0, result.length()-1) + " }";
+		result = result.substring(0, result.length()-1) + "}";
 		
 		return result;
 	}
