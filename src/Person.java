@@ -78,8 +78,4 @@ public class Person {
 	public void setSth(Byte sth) {
 		this.sth = sth;
 	}
-
-	public Boolean getMarried() {
-		return married;
-	}
 }
