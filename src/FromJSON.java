@@ -39,7 +39,6 @@ public class FromJSON {
 	}
 	
 	public Object castFieldValue(String value, Class<?> c){
-		System.out.println(c + " : " + value);
 		if(c.equals(Integer.class) || c.equals(int.class)){
 			if(value == null){ 
 				value = "0";
@@ -97,7 +96,6 @@ public class FromJSON {
 	public Object findFieldValue(Field field, String json){
 		Class<?> fieldClass = field.getType();
 		Integer position = json.indexOf(field.getName());
-		System.out.println(field.getName() + "[" + fieldClass + "] @" + position);
 		if(position == -1){
 			return castFieldValue(null, fieldClass);
 		}
@@ -148,7 +146,6 @@ public class FromJSON {
 				
 				for(Field field : c.getDeclaredFields()){
 					Object value = findFieldValue(field, json);
-					System.out.println(field.getName() + " : " + value);
 					setFieldValue(result, field, value);
 				}
 				
